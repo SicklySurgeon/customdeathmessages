@@ -1,0 +1,25 @@
+# --- Maven build output ---
+target/
+
+# --- Generated POMs ---
+effective-pom.xml
+
+# --- IDE files ---
+.idea/
+*.iml
+.vscode/
+.classpath
+.project
+.settings/
+nbproject/
+
+# --- OS files ---
+.DS_Store
+Thumbs.db
+
+# --- Local, non-project files ---
+consumo.html
+opencode.json
+
+# --- Logs ---
+*.log

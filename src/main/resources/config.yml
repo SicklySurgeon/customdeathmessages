@@ -1,0 +1,116 @@
+# ==============================================================================
+# CustomDeathMessages - Main Configuration
+# Version: 1.6.1
+# ==============================================================================
+
+ignore-validation-errors: false
+run-initial-validation: true
+log-death-messages: true
+
+# ==============================================================================
+# Message targeting
+# ==============================================================================
+message-to-victim: true
+message-to-world: true
+message-to-radius: 0
+
+# ==============================================================================
+# Sound settings
+# ==============================================================================
+play-sound-on-death: true
+death-sound: entity.player.death
+sound-volume: 1.0
+sound-pitch: 1.0
+
+# Legacy sound broadcast keys.
+# effects-broadcast.sound-mode has priority if present.
+sound-broadcast-mode: WORLD
+sound-broadcast-radius: 50
+
+# ==============================================================================
+# Particle settings
+# ==============================================================================
+play-particles-on-death: true
+death-particle: EXPLOSION
+particle-count: 50
+particle-offset-x: 0.5
+particle-offset-y: 0.5
+particle-offset-z: 0.5
+particle-extra: 0.1
+
+# Legacy particle broadcast keys.
+# effects-broadcast.particle-mode has priority if present.
+particle-broadcast-mode: WORLD
+particle-broadcast-radius: 50
+
+# ==============================================================================
+# Visual effects
+# ==============================================================================
+play-title-on-death: false
+death-title: "&cYOU DIED"
+death-subtitle: "&7Cause: {cause}"
+
+play-actionbar-on-death: false
+death-actionbar: "&c{victim} has perished!"
+
+play-darken-screen-effect: false
+darken-effect-duration-ticks: 20
+darken-effect-particle: CLOUD
+
+# ==============================================================================
+# Unified broadcast settings
+# ==============================================================================
+effects-broadcast:
+  default-mode: WORLD
+  default-radius: 50
+
+  sound-mode: WORLD
+  sound-radius: 50
+
+  particle-mode: WORLD
+  particle-radius: 50
+
+  title-mode: VICTIM_ONLY
+  title-radius: 0
+
+  actionbar-mode: VICTIM_ONLY
+  actionbar-radius: 0
+
+  darken-effect-mode: RADIUS
+  darken-effect-radius: 30
+
+# ==============================================================================
+# Time and respawn
+# ==============================================================================
+time-format: "HH:mm:ss"
+
+respawn-message-enabled: true
+respawn-message: "&a{player} has respawned!"
+
+# ==============================================================================
+# Epic deaths
+# ==============================================================================
+epic-death-chance: 0.05
+
+# ==============================================================================
+# Economy
+# ==============================================================================
+cost-per-death-message: 0.0
+
+exempt-groups-from-cost:
+  - admin
+
+# ==============================================================================
+# Per-world messages
+# ==============================================================================
+per-world-messages: {}
+
+# ==============================================================================
+# Permissions and colors
+# ==============================================================================
+use-permission-based-messages: true
+
+# Hex colors can be written as <#RRGGBB> or &#RRGGBB (requires Minecraft 1.16+).
+# If set to true, hex codes are removed instead of translated (only for servers
+# running Minecraft 1.15 or older).
+legacy-color-support: false
