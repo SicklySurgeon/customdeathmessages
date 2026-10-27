@@ -9,14 +9,15 @@ Custom, cinematic death messages for Minecraft servers running **Spigot, Paper o
 Links:
 
 - Modrinth: <https://modrinth.com/plugin/customdeathmessages>
+- Documentation: [GitHub Wiki](https://github.com/SicklySurgeon/customdeathmessages/wiki)
 - Source code: this repository.
 
 ## Features
 
-- **Per-cause and per-group messages.** Death messages are configurable per damage cause, per message group (`default`, `vip`, `admin`, …) and per world. Groups are selected by permission or directly through `messages.yml`.
+- **Per-cause and per-group messages.** Death messages are configurable per damage cause, per message group (`default`, `vip`, `admin`) and per world. Groups are selected by permission or directly through `messages.yml`.
 - **True hex colors.** Supports both `&#RRGGBB` and `<#RRGGBB>` syntax (requires Minecraft 1.16+ clients). On servers with `legacy-color-support: true`, hex codes are removed instead of translated so pre-1.16 clients stay readable.
 - **Epic deaths.** Configurable chance that triggers extra title, action bar, custom sound and particle burst effects when a player dies.
-- **Unified effect broadcasting.** Every death effect (sound, particles, title, action bar and darken-screen) has its own broadcast mode: `WORLD`, `RADIUS` or `VICTIM_ONLY`, with cached radius resolution.
+- **Unified effect broadcasting.** Every death effect (sound, particles, title, action bar and darken-screen) has its own broadcast mode: `GLOBAL`, `WORLD`, `RADIUS` or `VICTIM_ONLY`, with cached radius resolution.
 - **Accurate attribution.** Killer detection uses recent damage only (15-second window), falls back to the shooter for projectiles and avoids cross-world errors.
 - **Rich placeholders.** Built-in placeholders for victim, killer, weapon, biome, effects, distance, coordinates and more. PlaceholderAPI, Vault (optional death-message cost) and Essentials (nicknames) are automatic optional integrations.
 - **Respawn and time messages.** Configurable respawn broadcast and `{time}` stamp via `time-format`.
@@ -90,6 +91,10 @@ death-title: "<#FF5555>YOU DIED &8« &7{cause}"
 ```
 
 Automatic updates, PlaceholderAPI placeholders, Essentials nicknames and Vault costs stay optional and are detected at runtime when the plugins are present.
+
+## Documentation
+
+The [GitHub Wiki](https://github.com/SicklySurgeon/customdeathmessages/wiki) contains the full reference: installation, commands and permissions, the complete `config.yml` and `messages.yml` guides, placeholders, building from source and troubleshooting.
 
 ## Changelog
 
