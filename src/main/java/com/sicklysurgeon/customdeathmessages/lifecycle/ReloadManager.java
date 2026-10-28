@@ -79,8 +79,8 @@ public class ReloadManager {
 
             ConfigValidator tempValidator = new ConfigValidator(tempConfigManager, tempMessagesManager.getMessages());
             List<String> report = tempValidator.generateValidationReport();
-
-            boolean hasErrors = report.stream().anyMatch(s -> s.contains("❌"));
+            boolean hasErrors = report.stream().anyMatch(s ->
+                    s.startsWith(net.md_5.bungee.api.ChatColor.RED.toString()));
             boolean ignoreErrors = tempConfigManager.getConfig().getBoolean("ignore-validation-errors", false);
 
             if (hasErrors && !ignoreErrors) {

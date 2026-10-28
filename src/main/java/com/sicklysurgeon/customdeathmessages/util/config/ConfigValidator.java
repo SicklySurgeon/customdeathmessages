@@ -5,7 +5,6 @@ import com.sicklysurgeon.customdeathmessages.util.ParticleUtil;
 import com.sicklysurgeon.customdeathmessages.util.SoundUtil;
 import com.sicklysurgeon.customdeathmessages.util.formatter.ColorFormatter;
 import org.bukkit.ChatColor;
-import org.bukkit.Particle;
 import org.bukkit.Sound;
 import org.bukkit.configuration.ConfigurationSection;
 import org.bukkit.configuration.file.FileConfiguration;
@@ -41,7 +40,8 @@ public class ConfigValidator {
         validateMessagesYml();
 
         long issueCount = report.stream()
-                .filter(line -> line.contains("❌") || line.contains("⚠️"))
+                .filter(line -> line.startsWith(ChatColor.RED.toString())
+                        || line.startsWith(ChatColor.YELLOW.toString()))
                 .count();
 
         if (issueCount == 0) {
@@ -235,7 +235,7 @@ public class ConfigValidator {
     }
 
     private void validateParticle(String name, String context) {
-        Particle particle = ParticleUtil.tryParse(name);
+        String particle = ParticleUtil.tryParse(name);
 
         if (particle == null) {
             report.add(ChatColor.RED + "❌ Invalid particle '" + name + "' (" + context + ").");

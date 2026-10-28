@@ -1,6 +1,7 @@
 package com.sicklysurgeon.customdeathmessages.util.context;
 
 import com.sicklysurgeon.customdeathmessages.CustomDeathMessages;
+import com.sicklysurgeon.customdeathmessages.util.VersionCompat;
 import org.bukkit.Location;
 import org.bukkit.entity.Entity;
 import org.bukkit.entity.Player;
@@ -51,7 +52,7 @@ public class ContextEnricher {
 
     public String getDeathBiome(DeathContext context) {
         Location location = context.getVictim().getLocation();
-        String biomeKey = location.getBlock().getBiome().getKey().getKey();
+        String biomeKey = VersionCompat.biomeName(location.getBlock().getBiome());
 
         return Arrays.stream(biomeKey.split("_"))
                 .map(this::capitalizeFirst)
@@ -59,9 +60,9 @@ public class ContextEnricher {
     }
 
     public String getVictimWeapon(DeathContext context) {
-        ItemStack item = context.getVictim().getInventory().getItemInMainHand();
+        ItemStack item = VersionCompat.getItemInMainHand(context.getVictim());
 
-        if (item == null || item.getType().isAir()) {
+        if (item == null || VersionCompat.isAir(item.getType())) {
             return "Empty";
         }
 
@@ -85,7 +86,7 @@ public class ContextEnricher {
 
         return effects.stream()
                 .map(effect -> {
-                    String effectName = effect.getType().getKey().getKey()
+                    String effectName = VersionCompat.potionName(effect.getType())
                             .toLowerCase(Locale.ROOT)
                             .replace("_", " ");
                     return capitalizeWords(effectName);

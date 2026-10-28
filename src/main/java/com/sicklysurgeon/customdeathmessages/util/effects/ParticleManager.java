@@ -4,7 +4,6 @@ import com.sicklysurgeon.customdeathmessages.CustomDeathMessages;
 import com.sicklysurgeon.customdeathmessages.util.broadcast.BroadcastManager;
 import com.sicklysurgeon.customdeathmessages.util.config.ConfigManager;
 import org.bukkit.Location;
-import org.bukkit.Particle;
 import org.bukkit.entity.Player;
 import org.bukkit.scheduler.BukkitRunnable;
 
@@ -44,7 +43,7 @@ public class ParticleManager {
                                             boolean isEpic,
                                             ConfigManager.BroadcastMode mode,
                                             int radius) {
-        Particle particle;
+        String particle;
         int count;
         float offsetX, offsetY, offsetZ, extra;
 
@@ -69,7 +68,7 @@ public class ParticleManager {
     }
 
     public void spawnCustomParticles(Player victim,
-                                     Particle particle,
+                                     String particle,
                                      int count,
                                      double offsetX,
                                      double offsetY,
@@ -82,7 +81,7 @@ public class ParticleManager {
     }
 
     public void spawnParticlesGlobal(Player victim,
-                                     Particle particle,
+                                     String particle,
                                      int count,
                                      double offsetX,
                                      double offsetY,
@@ -93,7 +92,7 @@ public class ParticleManager {
     }
 
     public void spawnParticlesWorld(Player victim,
-                                    Particle particle,
+                                    String particle,
                                     int count,
                                     double offsetX,
                                     double offsetY,
@@ -104,7 +103,7 @@ public class ParticleManager {
     }
 
     public void spawnParticlesRadius(Player victim,
-                                     Particle particle,
+                                     String particle,
                                      int count,
                                      double offsetX,
                                      double offsetY,
@@ -116,7 +115,7 @@ public class ParticleManager {
     }
 
     public void spawnParticlesVictimOnly(Player victim,
-                                         Particle particle,
+                                         String particle,
                                          int count,
                                          double offsetX,
                                          double offsetY,
@@ -134,7 +133,7 @@ public class ParticleManager {
         }
 
         int durationTicks = configManager.getDarkenEffectDurationTicks();
-        Particle particle = configManager.getCachedDarkenParticle();
+        String particle = configManager.getCachedDarkenParticle();
 
         ConfigManager.BroadcastMode mode = configManager.getBroadcastMode("darken-effect");
         int radius = configManager.getBroadcastRadius("darken-effect");

@@ -8,7 +8,6 @@ import com.sicklysurgeon.customdeathmessages.util.config.ConfigManager;
 import com.sicklysurgeon.customdeathmessages.util.effects.ParticleManager;
 import com.sicklysurgeon.customdeathmessages.util.effects.SoundManager;
 import com.sicklysurgeon.customdeathmessages.util.formatter.ColorFormatter;
-import org.bukkit.Particle;
 import org.bukkit.Sound;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
@@ -181,7 +180,7 @@ public class BroadcastCommand implements CommandExecutor {
         }
 
         int radius = plugin.getConfigManager().getBroadcastRadius("particle");
-        Particle particle = plugin.getConfigManager().getCachedParticle();
+        String particle = plugin.getConfigManager().getCachedParticle();
         int count = plugin.getConfigManager().getParticleCount();
 
         double offsetX = plugin.getConfigManager().getParticleOffsetX();
@@ -213,7 +212,7 @@ public class BroadcastCommand implements CommandExecutor {
                 "&a✓ Broadcasted particles '{particle}' with mode: {mode}{radius_info}");
 
         successMsg = successMsg
-                .replace("{particle}", particle.name())
+                .replace("{particle}", ParticleUtil.name(particle))
                 .replace("{mode}", mode.name())
                 .replace("{radius_info}", radiusInfo);
 
@@ -422,11 +421,11 @@ public class BroadcastCommand implements CommandExecutor {
                 "&cInvalid sound '{sound_name}'. Using default: entity.player.death.")
                 .replace("{sound_name}", soundName));
 
-        return Sound.ENTITY_PLAYER_DEATH;
+        return SoundUtil.defaultSound();
     }
 
-    private Particle parseParticle(CommandSender sender, String particleName) {
-        Particle particle = ParticleUtil.tryParse(particleName);
+    private String parseParticle(CommandSender sender, String particleName) {
+        String particle = ParticleUtil.tryParse(particleName);
 
         if (particle != null) {
             return particle;
@@ -436,6 +435,6 @@ public class BroadcastCommand implements CommandExecutor {
                 "&cInvalid particle '{particle_name}'. Using default: EXPLOSION.")
                 .replace("{particle_name}", particleName));
 
-        return Particle.EXPLOSION;
+        return ParticleUtil.DEFAULT_PARTICLE;
     }
 }

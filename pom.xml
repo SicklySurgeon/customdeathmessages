@@ -6,7 +6,7 @@
 
     <groupId>com.sicklysurgeon</groupId>
     <artifactId>customdeathmessages</artifactId>
-    <version>1.6.1</version>
+    <version>1.7.0</version>
     <packaging>jar</packaging>
 
     <name>CustomDeathMessages</name>
@@ -53,13 +53,6 @@
         </dependency>
 
         <dependency>
-            <groupId>io.papermc</groupId>
-            <artifactId>paperlib</artifactId>
-            <version>1.0.7</version>
-            <scope>provided</scope>
-        </dependency>
-
-        <dependency>
             <groupId>me.clip</groupId>
             <artifactId>placeholderapi</artifactId>
             <version>2.11.6</version>
@@ -89,6 +82,10 @@
                 <directory>src/main/resources</directory>
                 <filtering>false</filtering>
             </resource>
+            <resource>
+                <directory>src/modern/resources</directory>
+                <filtering>false</filtering>
+            </resource>
         </resources>
 
         <plugins>
@@ -97,9 +94,48 @@
                 <artifactId>maven-compiler-plugin</artifactId>
                 <version>3.11.0</version>
                 <configuration>
-                    <release>21</release>
+                    <release>${maven.compiler.release}</release>
                 </configuration>
             </plugin>
         </plugins>
     </build>
+
+    <profiles>
+        <!-- Modern build: Minecraft 1.21 - 26.3, Java 21. Active by default. -->
+        <profile>
+            <id>modern</id>
+            <activation>
+                <activeByDefault>true</activeByDefault>
+            </activation>
+            <properties>
+                <spigot.version>26.3-R0.1-SNAPSHOT</spigot.version>
+                <maven.compiler.release>21</maven.compiler.release>
+            </properties>
+            <build>
+                <finalName>${project.artifactId}-${project.version}-modern</finalName>
+            </build>
+        </profile>
+
+        <!-- Legacy build: Minecraft 1.8 - 1.20.x, Java 8. -->
+        <profile>
+            <id>legacy</id>
+            <properties>
+                <spigot.version>1.8.8-R0.1-SNAPSHOT</spigot.version>
+                <maven.compiler.release>8</maven.compiler.release>
+            </properties>
+            <build>
+                <finalName>${project.artifactId}-${project.version}-legacy</finalName>
+                <resources>
+                    <resource>
+                        <directory>src/main/resources</directory>
+                        <filtering>false</filtering>
+                    </resource>
+                    <resource>
+                        <directory>src/legacy/resources</directory>
+                        <filtering>false</filtering>
+                    </resource>
+                </resources>
+            </build>
+        </profile>
+    </profiles>
 </project>

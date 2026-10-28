@@ -1,7 +1,6 @@
 name: CustomDeathMessages
-version: 1.6.1
+version: 1.7.0
 main: com.sicklysurgeon.customdeathmessages.CustomDeathMessages
-api-version: '1.21'
 authors: [SicklySurgeon]
 description: Muestra mensajes de muerte personalizados, coloridos y dinámicos.
 softdepend: [PlaceholderAPI, Vault, Essentials]

@@ -2,9 +2,14 @@
 
 ![Modrinth Version](https://img.shields.io/modrinth/v/customdeathmessages)
 ![Modrinth Downloads](https://img.shields.io/modrinth/dt/customdeathmessages)
-![Minecraft versions](https://img.shields.io/badge/Minecraft-1.21.x%E2%80%9326.3-brightgreen)
+![Minecraft versions](https://img.shields.io/badge/Minecraft-1.8%E2%80%9326.3-brightgreen)
 
-Custom, cinematic death messages for Minecraft servers running **Spigot, Paper or Purpur** on **Minecraft 1.21.x – 26.3** (Java 21 or newer).
+Custom, cinematic death messages for Minecraft servers running **Spigot, Paper or Purpur** on **Minecraft 1.8 – 26.3**. Two builds share the same code and configuration:
+
+| Build | Minecraft | Java | JAR |
+|---|---|---|---|
+| **Modern** | 1.21 – 26.3 | 21+ | `customdeathmessages-1.7.0-modern.jar` |
+| **Legacy** | 1.8 – 1.20.x | 8+ | `customdeathmessages-1.7.0-legacy.jar` |
 
 Links:
 
@@ -24,22 +29,42 @@ Links:
 
 ## Installation
 
-1. Download the latest JAR from [Modrinth](https://modrinth.com/plugin/customdeathmessages).
-2. Drop it into your `plugins/` folder (requires **Java 21+**).
+1. Download the build that matches your server from [Modrinth](https://modrinth.com/plugin/customdeathmessages):
+   - **Modern** for Minecraft 1.21 – 26.3 (Java 21+).
+   - **Legacy** for Minecraft 1.8 – 1.20.x (Java 8+).
+2. Drop the JAR into your `plugins/` folder. Do not install both builds at once.
 3. Restart the server.
 4. Edit `plugins/CustomDeathMessages/config.yml` and `messages.yml` to taste, then run `/cdmreload`.
 
 Existing configuration files are never overwritten by updates.
 
+## Compatibility
+
+| Item | Modern build | Legacy build |
+|---|---|---|
+| Minecraft | 1.21 – 26.3 | 1.8 – 1.20.x |
+| Java | 21+ | 8+ |
+| `api-version` | `1.21` | not declared |
+| Hex colors | Full support | Full on 1.16+ servers; approximated below 1.16 |
+| Particles | `Particle` registry | `Particle` when available, `Effect` on 1.8 |
+
+Sounds and particles are resolved at runtime, so the same configuration works on both builds. Renamed sounds and particles (for example `EXPLOSION_LARGE` on 1.16 and `EXPLOSION` on 1.17+) are translated automatically.
+
 ## Building from source
 
-Requirements: JDK 21+ and Maven 3.9+.
+Requirements: JDK 21+ (the legacy build is compiled with `--release 8`) and Maven 3.9+.
 
 ```bash
-mvn clean package
+mvn clean package            # modern build
+mvn -Plegacy clean package   # legacy build
 ```
 
-The ready-to-install JAR is written to `target/customdeathmessages-<version>.jar`. The build compiles against Spigot API `26.3-R0.1-SNAPSHOT` and sets `api-version: 1.21`, so the same JAR loads on 1.21.x through 26.3.
+Outputs:
+
+```text
+target/customdeathmessages-1.7.0-modern.jar
+target/customdeathmessages-1.7.0-legacy.jar
+```
 
 ## Commands
 
@@ -98,7 +123,7 @@ The [GitHub Wiki](https://github.com/SicklySurgeon/customdeathmessages/wiki) con
 
 ## Changelog
 
-Release history lives in [`CHANGELOG-1.6.md`](CHANGELOG-1.6.md) and [`CHANGELOG-1.6.1.md`](CHANGELOG-1.6.1.md). Version 1.6.1 is a compatibility hotfix: it restores `api-version: 1.21` so the same 1.6 code base loads on Minecraft 1.21.x and 26.3.
+Release history lives in [`CHANGELOG-1.7.0.md`](CHANGELOG-1.7.0.md), [`CHANGELOG-1.6.1.md`](CHANGELOG-1.6.1.md) and [`CHANGELOG-1.6.md`](CHANGELOG-1.6.md). Version 1.7.0 adds the legacy build for Minecraft 1.8 – 1.20.x and a runtime compatibility layer for sounds, particles, titles, action bars and colors.
 
 ## License
 

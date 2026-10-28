@@ -4,7 +4,6 @@ import com.sicklysurgeon.customdeathmessages.CustomDeathMessages;
 import com.sicklysurgeon.customdeathmessages.util.ParticleUtil;
 import com.sicklysurgeon.customdeathmessages.util.SoundUtil;
 import com.sicklysurgeon.customdeathmessages.util.managers.MessagesManager;
-import org.bukkit.Particle;
 import org.bukkit.Sound;
 import org.bukkit.configuration.ConfigurationSection;
 import org.bukkit.configuration.file.FileConfiguration;
@@ -22,8 +21,8 @@ public class ConfigManager {
     private FileConfiguration config;
 
     private Sound cachedSound;
-    private Particle cachedParticle;
-    private Particle cachedDarkenParticle;
+    private String cachedParticle;
+    private String cachedDarkenParticle;
 
     private Map<String, String> perWorldMessagesCache;
     private Map<String, SoundConfig> groupSoundCache;
@@ -78,9 +77,9 @@ public class ConfigManager {
             config = plugin.getConfig();
         }
 
-        Sound defaultSound = Sound.ENTITY_PLAYER_DEATH;
-        Particle defaultParticle = Particle.EXPLOSION;
-        Particle defaultDarkenParticle = Particle.CLOUD;
+        Sound defaultSound = SoundUtil.defaultSound();
+        String defaultParticle = ParticleUtil.DEFAULT_PARTICLE;
+        String defaultDarkenParticle = ParticleUtil.DEFAULT_DARKEN_PARTICLE;
 
         this.broadcastModeCache.clear();
         this.broadcastRadiusCache.clear();
@@ -143,7 +142,7 @@ public class ConfigManager {
 
                         Sound sound = SoundUtil.parse(
                                 soundKeyName,
-                                Sound.ENTITY_PLAYER_DEATH,
+                                SoundUtil.defaultSound(),
                                 msg -> plugin.getLogger().warning(
                                         "Invalid sound config for group " + group + " in messages.yml: " + msg)
                         );
@@ -315,7 +314,7 @@ public class ConfigManager {
         return config != null && config.getBoolean("play-particles-on-death", true);
     }
 
-    public Particle getCachedParticle() {
+    public String getCachedParticle() {
         return cachedParticle;
     }
 
@@ -387,7 +386,7 @@ public class ConfigManager {
         return config != null ? Math.max(0, config.getInt("darken-effect-duration-ticks", 20)) : 20;
     }
 
-    public Particle getCachedDarkenParticle() {
+    public String getCachedDarkenParticle() {
         return cachedDarkenParticle;
     }
 

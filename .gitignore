@@ -1,6 +1,9 @@
 # --- Maven build output ---
 target/
 
+# --- Local release JARs ---
+dist/
+
 # --- Generated POMs ---
 effective-pom.xml
 

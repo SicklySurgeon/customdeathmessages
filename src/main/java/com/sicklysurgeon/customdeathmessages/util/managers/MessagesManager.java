@@ -3,7 +3,6 @@ package com.sicklysurgeon.customdeathmessages.util.managers;
 import com.sicklysurgeon.customdeathmessages.CustomDeathMessages;
 import com.sicklysurgeon.customdeathmessages.util.ParticleUtil;
 import com.sicklysurgeon.customdeathmessages.util.SoundUtil;
-import org.bukkit.Particle;
 import org.bukkit.Sound;
 import org.bukkit.configuration.ConfigurationSection;
 import org.bukkit.configuration.file.FileConfiguration;
@@ -30,7 +29,7 @@ public class MessagesManager {
     private Map<String, List<?>> conditionalMessageCache;
 
     private Sound cachedEpicSound;
-    private Particle cachedEpicParticle;
+    private String cachedEpicParticle;
 
     private String epicSoundName;
     private String epicParticleName;
@@ -69,8 +68,8 @@ public class MessagesManager {
     }
 
     private void initializeEpicEffectsCache() {
-        Sound defaultEpicSound = Sound.ENTITY_LIGHTNING_BOLT_THUNDER;
-        Particle defaultEpicParticle = Particle.EXPLOSION;
+        Sound defaultEpicSound = SoundUtil.defaultThunderSound();
+        String defaultEpicParticle = ParticleUtil.DEFAULT_PARTICLE;
 
         String rawEpicSound = messagesConfig.getString(
                 "epic-effects.sound",
@@ -107,7 +106,7 @@ public class MessagesManager {
         return cachedEpicSound;
     }
 
-    public Particle getCachedEpicParticle() {
+    public String getCachedEpicParticle() {
         return cachedEpicParticle;
     }
 

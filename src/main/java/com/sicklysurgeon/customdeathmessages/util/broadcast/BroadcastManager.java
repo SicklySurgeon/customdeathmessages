@@ -1,12 +1,11 @@
 package com.sicklysurgeon.customdeathmessages.util.broadcast;
 
 import com.sicklysurgeon.customdeathmessages.CustomDeathMessages;
+import com.sicklysurgeon.customdeathmessages.util.ParticleUtil;
+import com.sicklysurgeon.customdeathmessages.util.VersionCompat;
 import com.sicklysurgeon.customdeathmessages.util.config.ConfigManager;
-import net.md_5.bungee.api.ChatMessageType;
-import net.md_5.bungee.api.chat.TextComponent;
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
-import org.bukkit.Particle;
 import org.bukkit.Sound;
 import org.bukkit.entity.Player;
 
@@ -74,7 +73,7 @@ public class BroadcastManager {
     public void broadcastParticles(Player victim,
                                    ConfigManager.BroadcastMode mode,
                                    int radius,
-                                   Particle particle,
+                                   String particle,
                                    int count,
                                    double offsetX,
                                    double offsetY,
@@ -96,14 +95,14 @@ public class BroadcastManager {
                         ? particleLocation
                         : recipient.getLocation();
 
-                recipient.spawnParticle(particle, target, count,
+                ParticleUtil.spawn(recipient, target, particle, count,
                         offsetX, offsetY, offsetZ, extra);
             }
             return;
         }
 
         if (mode == ConfigManager.BroadcastMode.WORLD) {
-            victim.getWorld().spawnParticle(particle, particleLocation, count,
+            ParticleUtil.spawn(victim.getWorld(), particleLocation, particle, count,
                     offsetX, offsetY, offsetZ, extra);
             return;
         }
@@ -111,7 +110,7 @@ public class BroadcastManager {
         List<Player> recipients = getRecipients(victim, mode, radius);
         for (Player recipient : recipients) {
             if (recipient.isOnline()) {
-                recipient.spawnParticle(particle, particleLocation, count,
+                ParticleUtil.spawn(recipient, particleLocation, particle, count,
                         offsetX, offsetY, offsetZ, extra);
             }
         }
@@ -120,7 +119,7 @@ public class BroadcastManager {
     public void broadcastParticles(Player victim,
                                    ConfigManager.BroadcastMode mode,
                                    int radius,
-                                   Particle particle,
+                                   String particle,
                                    int count,
                                    double offsetX,
                                    double offsetY,
@@ -138,7 +137,7 @@ public class BroadcastManager {
      */
     public void broadcastParticlesTo(List<Player> recipients,
                                      ConfigManager.BroadcastMode mode,
-                                     Particle particle,
+                                     String particle,
                                      int count,
                                      double offsetX,
                                      double offsetY,
@@ -157,7 +156,7 @@ public class BroadcastManager {
                 target = recipient.getLocation();
             }
 
-            recipient.spawnParticle(particle, target, count,
+            ParticleUtil.spawn(recipient, target, particle, count,
                     offsetX, offsetY, offsetZ, extra);
         }
     }
@@ -174,7 +173,7 @@ public class BroadcastManager {
 
         for (Player recipient : recipients) {
             if (recipient.isOnline()) {
-                recipient.sendTitle(title, subtitle, fadeIn, stay, fadeOut);
+                VersionCompat.sendTitle(recipient, title, subtitle, fadeIn, stay, fadeOut);
             }
         }
     }
@@ -187,10 +186,7 @@ public class BroadcastManager {
 
         for (Player recipient : recipients) {
             if (recipient.isOnline()) {
-                recipient.spigot().sendMessage(
-                        ChatMessageType.ACTION_BAR,
-                        TextComponent.fromLegacyText(message)
-                );
+                VersionCompat.sendActionBar(recipient, message);
             }
         }
     }
